@@ -7,19 +7,11 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CreateUserRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
@@ -29,23 +21,23 @@ class CreateUserRequest extends FormRequest
         ];
     }
 
-
     public function messages(): array
     {
         return [
-            'firstname.required' => __('errorMessages.firstname.required'),
-            'firstname.string' => __('errorMessages.firstname.string'),
-            'firstname.between' => __('errorMessages.firstname.between'),
-            'firstname.regex' => __('errorMessages.firstname.regex'),
-            'lastname.required' => __('errorMessages.lastname.required'),
-            'lastname.string' => __('errorMessages.lastname.string'),
-            'lastname.between' => __('errorMessages.lastname.between'),
-            'lastname.regex' => __('errorMessages.lastname.regex'),
-            'description.string' => __('errorMessages.description.string'),
-            'description.max' => __('errorMessages.description.max'),
+            'firstname.required' => ('errorMessages.firstname.required'),
+            'firstname.string' => ('errorMessages.firstname.string'),
+            'firstname.between' => ('errorMessages.firstname.between'),
+            'firstname.regex' => ('errorMessages.firstname.regex'),
+            'lastname.required' => ('errorMessages.lastname.required'),
+            'lastname.string' => ('errorMessages.lastname.string'),
+            'lastname.between' => ('errorMessages.lastname.between'),
+            'lastname.regex' => ('errorMessages.lastname.regex'),
+            'description.string' => ('errorMessages.description.string'),
+            'description.max' => ('errorMessages.description.max'),
         ];
     }
-    public function prepareForValidation()
+
+    public function prepareForValidation(): void
     {
         $this->merge([
             'firstname' => mb_convert_case(trim(preg_replace('/[~!@#$%^&*()_+={}|\[\]\/\\\\"№;%:?*]/', '', $this->input('firstname'))), MB_CASE_TITLE, "UTF-8"),
